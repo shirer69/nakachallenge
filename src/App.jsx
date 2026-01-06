@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle, Shield } from 'lucide-react';
+import { Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle, Shield, ExternalLink, Brain, Target } from 'lucide-react';
 
 /**
- * Nakaminsky Protocol Challenge
- * Un défi interactif de type "Hacker" avec deux phases : 
- * 1. Logique (Séquence numérique)
- * 2. Mémoire (Pattern visuel)
+ * Nakaminsky Protocol Challenge - Trading Edition
+ * 1. Money Management (Calcul de risque)
+ * 2. Psychologie (Discipline émotionnelle)
  */
 const App = () => {
   const [step, setStep] = useState('intro'); // intro, challenge1, challenge2, success
@@ -17,63 +16,49 @@ const App = () => {
     setLogs(prev => [...prev.slice(-8), `> ${msg}`]);
   };
 
-  // --- Phase 1 : Déchiffrement Logique ---
+  // --- Phase 1 : Money Management ---
   const startChallengeOne = () => {
     setStep('challenge1');
-    addLog("PHASE 1 : Décodage de la séquence de sécurité.");
-    addLog("Séquence : 2, 6, 12, 20, 30... Quel est le prochain nombre ?");
+    addLog("PHASE 1 : Test de gestion du capital (Money Management).");
+    addLog("Calcul : Compte de 5 000$. Risque de 2% par trade.");
+    addLog("Quel est le montant maximum (en $) que vous acceptez de perdre ?");
   };
 
   const checkChallengeOne = (e) => {
     e.preventDefault();
-    // La logique est n(n+1) ou x + (2*index). 2(+4)=6, 6(+6)=12, 12(+8)=20, 20(+10)=30, 30(+12)=42
-    if (input.trim() === '42') {
-      addLog("Séquence validée. Accès au niveau 2 autorisé.");
+    // 5000 * 0.02 = 100
+    if (input.trim() === '100') {
+      addLog("Calcul correct. Discipline de risque validée.");
       setInput('');
       setTimeout(() => setStep('challenge2'), 1000);
     } else {
-      addLog("Erreur de calcul. Intégrité compromise.");
+      addLog("ERREUR : Risque mal calculé. Capital en danger.");
       setInput('');
       setGlitch(true);
       setTimeout(() => setGlitch(false), 500);
     }
   };
 
-  // --- Phase 2 : Pattern de Vitesse ---
-  const [pattern, setPattern] = useState([]);
-  const [userPattern, setUserPattern] = useState([]);
-  const [activeNode, setActiveNode] = useState(null);
+  // --- Phase 2 : Psychologie du Trading ---
+  const handlePsychologyChoice = (isCorrect, choiceText) => {
+    addLog(`Action choisie : ${choiceText}`);
+    if (isCorrect) {
+      addLog("Mental d'acier détecté. Accès autorisé.");
+      setTimeout(() => setStep('success'), 1000);
+    } else {
+      addLog("ÉCHEC : Réponse émotionnelle détectée. Compte liquidé.");
+      setGlitch(true);
+      setTimeout(() => setGlitch(false), 500);
+    }
+  };
 
   useEffect(() => {
     if (step === 'challenge2') {
-      const newPattern = Array.from({ length: 4 }, () => Math.floor(Math.random() * 4));
-      setPattern(newPattern);
-      setUserPattern([]);
-      addLog("PHASE 2 : Réplication neuronale requise.");
-      addLog("Observez la séquence lumineuse.");
-      
-      let i = 0;
-      const interval = setInterval(() => {
-        setActiveNode(newPattern[i]);
-        setTimeout(() => setActiveNode(null), 400);
-        i++;
-        if (i >= newPattern.length) clearInterval(interval);
-      }, 800);
+      addLog("PHASE 2 : Test de psychologie des marchés.");
+      addLog("SCÉNARIO : Vous subissez 3 pertes consécutives (Drawdown).");
+      addLog("Quelle est votre prochaine action ?");
     }
   }, [step]);
-
-  const handleNodeClick = (index) => {
-    if (step !== 'challenge2') return;
-    const nextUserPattern = [...userPattern, index];
-    setUserPattern(nextUserPattern);
-    
-    if (nextUserPattern[nextUserPattern.length - 1] !== pattern[nextUserPattern.length - 1]) {
-      addLog("Désynchronisation détectée. Réinitialisation...");
-      setUserPattern([]);
-    } else if (nextUserPattern.length === pattern.length) {
-      setStep('success');
-    }
-  };
 
   return (
     <div className={`min-h-screen bg-slate-950 text-slate-200 font-mono p-4 flex flex-col items-center justify-center overflow-hidden transition-colors duration-300 ${glitch ? 'bg-red-950' : ''}`}>
@@ -95,7 +80,7 @@ const App = () => {
         <div className="bg-slate-800/50 p-3 border-b border-slate-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Cpu size={18} className="text-cyan-400" />
-            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // v2.1</span>
+            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // Trading v2.2</span>
           </div>
           <div className="flex gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
@@ -106,6 +91,43 @@ const App = () => {
 
         {/* Zone de contenu */}
         <div className="p-6">
+
+          {/* Logo Section */}
+          <div className="mb-6 flex justify-center">
+            <img 
+              src="/logo.png" 
+              alt="Nakaminsky Logo" 
+              className="h-20 w-auto object-contain drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]"
+              onError={(e) => {
+                e.target.onerror = null; 
+                e.target.style.display = 'none';
+              }} 
+            />
+          </div>
+
+          {/* Bannière de tarification et d'accès */}
+          <div className="mb-6 text-center flex flex-col gap-2">
+            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded py-3 px-4 animate-pulse">
+               <span className="text-cyan-400 font-bold text-sm sm:text-lg tracking-tighter uppercase">
+                ACCÈS VIP + COPY AUTO = 450$ / 3 MOIS
+               </span>
+            </div>
+            
+            <a 
+              href="https://t.me/nakaminsky" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold py-2.5 rounded transition-all flex items-center justify-center gap-2 uppercase tracking-[0.2em] shadow-lg shadow-cyan-900/20 active:scale-[0.98]"
+            >
+              Paiement <ExternalLink size={14} />
+            </a>
+
+            <div className="text-slate-500 text-xs font-black tracking-[0.3em] mt-1">OU</div>
+            
+            <div className="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest border border-emerald-500/20 py-2 rounded bg-emerald-500/5 uppercase">
+              RÉUSSIR LE TEST DE TRADING
+            </div>
+          </div>
           
           {/* Logs du Terminal */}
           <div className="mb-8 h-48 overflow-y-auto bg-black/40 p-4 rounded border border-slate-800/50 text-sm space-y-1 scrollbar-thin scrollbar-thumb-slate-800">
@@ -117,15 +139,15 @@ const App = () => {
           </div>
 
           {/* Interface Dynamique */}
-          <div className="flex flex-col items-center min-h-[200px] justify-center">
+          <div className="flex flex-col items-center min-h-[220px] justify-center text-center">
             
             {step === 'intro' && (
               <button 
                 onClick={startChallengeOne}
                 className="group relative px-8 py-4 bg-cyan-600 text-white font-bold rounded overflow-hidden transition-all hover:bg-cyan-500 active:scale-95 shadow-lg shadow-cyan-900/20"
               >
-                <span className="relative z-10 flex items-center gap-2 tracking-widest uppercase">
-                  INITIER LE CHALLENGE <Zap size={18} fill="currentColor" />
+                <span className="relative z-10 flex items-center gap-2 tracking-widest uppercase text-sm">
+                  LANCER L'ÉVALUATION <Target size={18} />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
               </button>
@@ -133,18 +155,19 @@ const App = () => {
 
             {step === 'challenge1' && (
               <form onSubmit={checkChallengeOne} className="w-full max-w-sm animate-in fade-in slide-in-from-bottom-4">
+                <label className="block text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">Entrez le montant en $</label>
                 <div className="relative">
                   <input 
                     autoFocus
                     type="text" 
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Résultat..."
-                    className="w-full bg-slate-950 border-2 border-slate-800 p-4 rounded text-center text-2xl tracking-widest focus:border-cyan-500 outline-none transition-all placeholder:text-slate-800"
+                    placeholder="000"
+                    className="w-full bg-slate-950 border-2 border-slate-800 p-4 rounded text-center text-2xl tracking-widest focus:border-cyan-500 outline-none transition-all placeholder:text-slate-800 text-white"
                   />
                   <div className="mt-4 flex justify-center">
-                    <button type="submit" className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 uppercase tracking-widest transition-colors">
-                      Valider la séquence <ChevronRight size={14} />
+                    <button type="submit" className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 uppercase tracking-[0.2em] transition-colors font-bold">
+                      Valider le calcul <ChevronRight size={14} />
                     </button>
                   </div>
                 </div>
@@ -152,38 +175,51 @@ const App = () => {
             )}
 
             {step === 'challenge2' && (
-              <div className="grid grid-cols-2 gap-4 animate-in zoom-in-95 duration-300">
-                {[0, 1, 2, 3].map((i) => (
-                  <button
-                    key={i}
-                    onClick={() => handleNodeClick(i)}
-                    className={`w-24 h-24 rounded border-2 transition-all duration-200 flex items-center justify-center ${
-                      activeNode === i 
-                        ? 'bg-cyan-400 border-white shadow-[0_0_25px_#22d3ee] scale-105' 
-                        : 'bg-slate-800/30 border-slate-700 hover:border-slate-500'
-                    }`}
-                  >
-                    <div className={`text-sm font-bold ${activeNode === i ? 'text-slate-900' : 'text-slate-600'}`}>
-                      {['ALPHA', 'BETA', 'GAMMA', 'DELTA'][i]}
-                    </div>
-                  </button>
-                ))}
+              <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
+                <button
+                  onClick={() => handlePsychologyChoice(false, "Venger le trade")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">A/</span> Augmenter le levier pour récupérer les pertes.
+                </button>
+                <button
+                  onClick={() => handlePsychologyChoice(true, "Pause et analyse")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">B/</span> Arrêter de trader, analyser le journal et faire une pause.
+                </button>
+                <button
+                  onClick={() => handlePsychologyChoice(false, "Changement de stratégie")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">C/</span> Acheter un nouvel indicateur miracle immédiatement.
+                </button>
+                <button
+                  onClick={() => handlePsychologyChoice(true, "Réduction de risque")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">D/</span> Réduire la taille de position de moitié au prochain trade.
+                </button>
               </div>
             )}
 
             {step === 'success' && (
-              <div className="text-center animate-in zoom-in duration-500">
+              <div className="text-center animate-in zoom-in duration-500 flex flex-col items-center">
                 <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-cyan-500/10 border-2 border-cyan-500 mb-4 shadow-[0_0_30px_#22d3ee44]">
                   <Unlock size={40} className="text-cyan-400" />
                 </div>
-                <h2 className="text-3xl font-black text-white tracking-tighter mb-2">ACCÈS TOTAL ACCORDÉ</h2>
-                <p className="text-slate-400 text-sm">Noyau Nakaminsky synchronisé. Protocoles de sécurité levés.</p>
-                <button 
-                  onClick={() => setStep('intro')}
-                  className="mt-6 text-xs border border-slate-700 px-4 py-2 rounded hover:bg-slate-800 transition-colors uppercase tracking-widest"
+                <h2 className="text-3xl font-black text-white tracking-tighter mb-2 uppercase">PROFIL CERTIFIÉ</h2>
+                <p className="text-slate-400 text-sm max-w-sm leading-relaxed">
+                  Accès autorisé à Nakaminsky Trading © par le biais d'un simple dépôt (capital de départ utiliser pour trader avec nous) chez notre exchange partenaire <a href="https://moonx.io/ref/QPHWJ1I" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline font-bold transition-colors">MoonX</a>
+                </p>
+                <a 
+                  href="https://moonx.io/ref/QPHWJ1I"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-8 px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded transition-all flex items-center gap-2 uppercase tracking-[0.15em] shadow-xl shadow-cyan-900/30 active:scale-95"
                 >
-                  Réinitialiser le terminal
-                </button>
+                  Ouvrir mon compte de trading <ExternalLink size={14} />
+                </a>
               </div>
             )}
           </div>
@@ -193,14 +229,14 @@ const App = () => {
         <div className="p-4 bg-slate-950/50 border-t border-slate-800 flex justify-between items-center text-[10px] text-slate-500 tracking-widest uppercase">
           <div className="flex items-center gap-2">
             <Shield size={12} />
-            <span>Encodage Quantum-Safe</span>
+            <span>Protection du capital active</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               Live Link
             </span>
-            <span>Ref: NKM-CORE-77</span>
+            <span>Ref: NKM-TRD-99</span>
           </div>
         </div>
       </div>
@@ -208,8 +244,8 @@ const App = () => {
       {/* Message d'avertissement */}
       {step !== 'success' && (
         <div className="mt-8 flex items-center gap-2 text-slate-700 text-xs italic">
-          <AlertCircle size={14} />
-          <span>Usage strictement réservé aux opérateurs Nakaminsky autorisés.</span>
+          <Brain size={14} />
+          <span>Le trading comporte des risques. La psychologie est votre seul allié.</span>
         </div>
       )}
     </div>
