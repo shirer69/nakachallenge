@@ -1,3 +1,14 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import './index.css' // <--- CETTE LIGNE EST CRUCIALE
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Terminal, Shield, Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle } from 'lucide-react';
 
