@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import { Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle, Shield, ExternalLink, Brain, Target } from 'lucide-react';
 
 /**
- * Nakaminsky Protocol Challenge - Trading Edition
- * 1. Money Management (Calcul de risque)
- * 2. Psychologie (Discipline émotionnelle)
+ * Nakaminsky Protocol Challenge - Psychology Edition v2.6
+ * 1. FOMO Management
+ * 2. Emotional Control (Drawdown)
+ * 3. Discipline (Daily Target)
+ * 4. Risk Adaptation (Volatility)
+ * 5. Loss Acceptance (Stop Loss)
  */
 const App = () => {
-  const [step, setStep] = useState('intro'); // intro, challenge1, challenge2, success
-  const [input, setInput] = useState('');
+  const [step, setStep] = useState('intro'); // intro, challenge1...5, success
   const [logs, setLogs] = useState(["Initialisation du protocole Nakaminsky...", "En attente d'autorisation..."]);
   const [glitch, setGlitch] = useState(false);
 
@@ -16,49 +18,38 @@ const App = () => {
     setLogs(prev => [...prev.slice(-8), `> ${msg}`]);
   };
 
-  // --- Phase 1 : Money Management ---
-  const startChallengeOne = () => {
+  const triggerError = (msg) => {
+    addLog(msg);
+    setGlitch(true);
+    setTimeout(() => setGlitch(false), 500);
+  };
+
+  // --- Navigation du Challenge ---
+  const startChallenge = () => {
     setStep('challenge1');
-    addLog("PHASE 1 : Test de gestion du capital (Money Management).");
-    addLog("Calcul : Compte de 5 000$. Risque de 2% par trade.");
-    addLog("Quel est le montant maximum (en $) que vous acceptez de perdre ?");
+    addLog("PHASE 1 : Gestion de l'impulsivité (FOMO).");
   };
 
-  const checkChallengeOne = (e) => {
-    e.preventDefault();
-    // 5000 * 0.02 = 100
-    if (input.trim() === '100') {
-      addLog("Calcul correct. Discipline de risque validée.");
-      setInput('');
-      setTimeout(() => setStep('challenge2'), 1000);
-    } else {
-      addLog("ERREUR : Risque mal calculé. Capital en danger.");
-      setInput('');
-      setGlitch(true);
-      setTimeout(() => setGlitch(false), 500);
-    }
-  };
-
-  // --- Phase 2 : Psychologie du Trading ---
-  const handlePsychologyChoice = (isCorrect, choiceText) => {
+  const handleChoice = (isCorrect, choiceText, nextStep) => {
     addLog(`Action choisie : ${choiceText}`);
+    
     if (isCorrect) {
-      addLog("Mental d'acier détecté. Accès autorisé.");
-      setTimeout(() => setStep('success'), 1000);
+      addLog("Analyse comportementale : VALIDÉE.");
+      if (nextStep === 'success') {
+        setTimeout(() => setStep('success'), 800);
+      } else {
+        setTimeout(() => {
+          setStep(nextStep);
+          if (nextStep === 'challenge2') addLog("PHASE 2 : Contrôle émotionnel (Drawdown).");
+          if (nextStep === 'challenge3') addLog("PHASE 3 : Discipline opérationnelle (Target).");
+          if (nextStep === 'challenge4') addLog("PHASE 4 : Adaptation au risque (Volatilité).");
+          if (nextStep === 'challenge5') addLog("PHASE 5 : Acceptation de la perte (Stop Loss).");
+        }, 800);
+      }
     } else {
-      addLog("ÉCHEC : Réponse émotionnelle détectée. Compte liquidé.");
-      setGlitch(true);
-      setTimeout(() => setGlitch(false), 500);
+      triggerError("ERREUR : Biais cognitif détecté. Accès refusé.");
     }
   };
-
-  useEffect(() => {
-    if (step === 'challenge2') {
-      addLog("PHASE 2 : Test de psychologie des marchés.");
-      addLog("SCÉNARIO : Vous subissez 3 pertes consécutives (Drawdown).");
-      addLog("Quelle est votre prochaine action ?");
-    }
-  }, [step]);
 
   return (
     <div className={`min-h-screen bg-slate-950 text-slate-200 font-mono p-4 flex flex-col items-center justify-center overflow-hidden transition-colors duration-300 ${glitch ? 'bg-red-950' : ''}`}>
@@ -80,7 +71,7 @@ const App = () => {
         <div className="bg-slate-800/50 p-3 border-b border-slate-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Cpu size={18} className="text-cyan-400" />
-            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // Trading v2.2</span>
+            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // Trading v2.6</span>
           </div>
           <div className="flex gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
@@ -92,7 +83,7 @@ const App = () => {
         {/* Zone de contenu */}
         <div className="p-6">
 
-          {/* Logo Section - Grandi et sans drop-shadow */}
+          {/* Logo Section */}
           <div className="mb-8 flex justify-center">
             <img 
               src="/logo.png" 
@@ -125,12 +116,12 @@ const App = () => {
             <div className="text-slate-500 text-xs font-black tracking-[0.3em] mt-1">OU</div>
             
             <div className="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest border border-emerald-500/20 py-2 rounded bg-emerald-500/5 uppercase">
-              RÉUSSIR LE TEST DE TRADING
+              RÉUSSIR NOTRE TEST
             </div>
           </div>
           
           {/* Logs du Terminal */}
-          <div className="mb-8 h-48 overflow-y-auto bg-black/40 p-4 rounded border border-slate-800/50 text-sm space-y-1 scrollbar-thin scrollbar-thumb-slate-800">
+          <div className="mb-8 h-40 overflow-y-auto bg-black/40 p-4 rounded border border-slate-800/50 text-sm space-y-1 scrollbar-thin scrollbar-thumb-slate-800">
             {logs.map((log, i) => (
               <div key={i} className={`${log.startsWith('>') ? 'text-cyan-400' : 'text-slate-500'}`}>
                 {log}
@@ -139,11 +130,11 @@ const App = () => {
           </div>
 
           {/* Interface Dynamique */}
-          <div className="flex flex-col items-center min-h-[220px] justify-center text-center">
+          <div className="flex flex-col items-center min-h-[260px] justify-center text-center">
             
             {step === 'intro' && (
               <button 
-                onClick={startChallengeOne}
+                onClick={startChallenge}
                 className="group relative px-8 py-4 bg-cyan-600 text-white font-bold rounded overflow-hidden transition-all hover:bg-cyan-500 active:scale-95 shadow-lg shadow-cyan-900/20"
               >
                 <span className="relative z-10 flex items-center gap-2 tracking-widest uppercase text-sm">
@@ -154,51 +145,91 @@ const App = () => {
             )}
 
             {step === 'challenge1' && (
-              <form onSubmit={checkChallengeOne} className="w-full max-w-sm animate-in fade-in slide-in-from-bottom-4">
-                <label className="block text-[10px] text-slate-500 uppercase tracking-widest mb-2 font-bold">Entrez le montant en $</label>
-                <div className="relative">
-                  <input 
-                    autoFocus
-                    type="text" 
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    placeholder="000"
-                    className="w-full bg-slate-950 border-2 border-slate-800 p-4 rounded text-center text-2xl tracking-widest focus:border-cyan-500 outline-none transition-all placeholder:text-slate-800 text-white"
-                  />
-                  <div className="mt-4 flex justify-center">
-                    <button type="submit" className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 uppercase tracking-[0.2em] transition-colors font-bold">
-                      Valider le calcul <ChevronRight size={14} />
-                    </button>
-                  </div>
-                </div>
-              </form>
+              <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Une bougie impulsive casse une résistance majeure sans vous. Que faites-vous ?</p>
+                <button
+                  onClick={() => handleChoice(false, "FOMO", "challenge2")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">A/</span> Entrer immédiatement au prix du marché pour ne pas rater le mouvement.
+                </button>
+                <button
+                  onClick={() => handleChoice(true, "Patience", "challenge2")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">B/</span> Attendre un retest de la zone ou un nouveau setup de probabilité.
+                </button>
+              </div>
             )}
 
             {step === 'challenge2' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Vous subissez 3 pertes consécutives ce matin (Drawdown). Quelle est votre réaction ?</p>
                 <button
-                  onClick={() => handlePsychologyChoice(false, "Venger le trade")}
+                  onClick={() => handleChoice(false, "Revenge Trading", "challenge3")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
                 >
-                  <span className="text-slate-500 font-bold">A/</span> Augmenter le levier pour récupérer les pertes.
+                  <span className="text-slate-500 font-bold">A/</span> Augmenter le levier sur le prochain trade pour récupérer rapidement.
                 </button>
                 <button
-                  onClick={() => handlePsychologyChoice(true, "Pause et analyse")}
+                  onClick={() => handleChoice(true, "Discipline Émotionnelle", "challenge3")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
                 >
-                  <span className="text-slate-500 font-bold">B/</span> Arrêter de trader, analyser le journal et faire une pause.
+                  <span className="text-slate-500 font-bold">B/</span> Fermer le terminal, analyser le journal et faire une pause mentale.
                 </button>
+              </div>
+            )}
+
+            {step === 'challenge3' && (
+              <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Objectif journalier atteint après seulement 20 min de trading. Action ?</p>
                 <button
-                  onClick={() => handlePsychologyChoice(false, "Changement de stratégie")}
+                  onClick={() => handleChoice(false, "Overtrading", "challenge4")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
                 >
-                  <span className="text-slate-500 font-bold">C/</span> Acheter un nouvel indicateur miracle immédiatement.
+                  <span className="text-slate-500 font-bold">A/</span> Continuer de chercher des opportunités pour faire une journée record.
                 </button>
                 <button
-                  onClick={() => handlePsychologyChoice(true, "Réduction de risque")}
+                  onClick={() => handleChoice(true, "Gestion des Gains", "challenge4")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
                 >
-                  <span className="text-slate-500 font-bold">D/</span> Réduire la taille de position de moitié au prochain trade.
+                  <span className="text-slate-500 font-bold">B/</span> Sécuriser les gains, éteindre les écrans et respecter son plan.
+                </button>
+              </div>
+            )}
+
+            {step === 'challenge4' && (
+              <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">La volatilité du marché augmente soudainement de 300%. Quelle est votre approche ?</p>
+                <button
+                  onClick={() => handleChoice(false, "Risque Excessif", "challenge5")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">A/</span> Garder la même taille de position pour profiter de l'amplitude maximale.
+                </button>
+                <button
+                  onClick={() => handleChoice(true, "Gestion du Risque", "challenge5")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">B/</span> Réduire la taille des positions pour conserver le même risque monétaire.
+                </button>
+              </div>
+            )}
+
+            {step === 'challenge5' && (
+              <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Le prix touche votre Stop Loss exact mais semble vouloir rebondir. Votre réaction ?</p>
+                <button
+                  onClick={() => handleChoice(false, "Espoir", "success")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">A/</span> Élargir ou supprimer le Stop Loss temporairement pour laisser respirer le trade.
+                </button>
+                <button
+                  onClick={() => handleChoice(true, "Acceptation", "success")}
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                >
+                  <span className="text-slate-500 font-bold">B/</span> Laisser le Stop Loss s'exécuter. Une perte fait partie du plan de trading.
                 </button>
               </div>
             )}
