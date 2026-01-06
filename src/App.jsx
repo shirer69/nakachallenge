@@ -130,7 +130,7 @@ const App = () => {
           </div>
 
           {/* Interface Dynamique */}
-          <div className="flex flex-col items-center min-h-[260px] justify-center text-center">
+          <div className="flex flex-col items-center min-h-[100px] justify-center text-center">
             
             {step === 'intro' && (
               <button 
