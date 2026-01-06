@@ -92,12 +92,12 @@ const App = () => {
         {/* Zone de contenu */}
         <div className="p-6">
 
-          {/* Logo Section */}
-          <div className="mb-6 flex justify-center">
+          {/* Logo Section - Grandi et sans drop-shadow */}
+          <div className="mb-8 flex justify-center">
             <img 
               src="/logo.png" 
               alt="Nakaminsky Logo" 
-              className="h-20 w-auto object-contain drop-shadow-[0_0_10px_rgba(34,211,238,0.2)]"
+              className="h-28 sm:h-32 w-auto object-contain"
               onError={(e) => {
                 e.target.onerror = null; 
                 e.target.style.display = 'none';
