@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Terminal, Shield, Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle } from 'lucide-react';
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css' // <--- CETTE LIGNE EST CRUCIALE
@@ -9,8 +10,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>,
 )
 
-
-import { Terminal, Shield, Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle } from 'lucide-react';
 
 const App = () => {
   const [step, setStep] = useState('intro'); // intro, challenge1, challenge2, success
