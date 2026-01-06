@@ -146,7 +146,7 @@ const App = () => {
 
             {step === 'challenge1' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Une bougie impulsive casse une résistance majeure sans vous. Que faites-vous ?</p>
+                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Une bougie impulsive casse une résistance majeure sans vous. Que faites-vous ?</p>
                 <button
                   onClick={() => handleChoice(false, "FOMO", "challenge2")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -164,7 +164,7 @@ const App = () => {
 
             {step === 'challenge2' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Vous subissez 3 pertes consécutives ce matin (Drawdown). Quelle est votre réaction ?</p>
+                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Vous subissez 3 pertes consécutives ce matin (Drawdown). Quelle est votre réaction ?</p>
                 <button
                   onClick={() => handleChoice(false, "Revenge Trading", "challenge3")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -182,7 +182,7 @@ const App = () => {
 
             {step === 'challenge3' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Objectif journalier atteint après seulement 20 min de trading. Action ?</p>
+                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Objectif journalier atteint après seulement 20 min de trading. Action ?</p>
                 <button
                   onClick={() => handleChoice(false, "Overtrading", "challenge4")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -200,7 +200,7 @@ const App = () => {
 
             {step === 'challenge4' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">La volatilité du marché augmente soudainement de 300%. Quelle est votre approche ?</p>
+                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">La volatilité du marché augmente soudainement de 300%. Quelle est votre approche ?</p>
                 <button
                   onClick={() => handleChoice(false, "Risque Excessif", "challenge5")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -218,7 +218,7 @@ const App = () => {
 
             {step === 'challenge5' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Le prix touche votre Stop Loss exact mais semble vouloir rebondir. Votre réaction ?</p>
+                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Le prix touche votre Stop Loss exact mais semble vouloir rebondir. Votre réaction ?</p>
                 <button
                   onClick={() => handleChoice(false, "Espoir", "success")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
