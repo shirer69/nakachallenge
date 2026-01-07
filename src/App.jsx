@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle, Shield, ExternalLink, Brain, Target } from 'lucide-react';
 
 /**
- * Nakaminsky Protocol Challenge - Psychology Edition v2.7
+ * Nakaminsky Protocol Challenge - Psychology Edition v2.8
  * 1. FOMO Management
  * 2. Emotional Control (Drawdown)
  * 3. Discipline (Daily Target)
@@ -71,7 +71,7 @@ const App = () => {
         <div className="bg-slate-800/50 p-3 border-b border-slate-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Cpu size={18} className="text-cyan-400" />
-            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // Trading v2.7</span>
+            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // Trading v2.8</span>
           </div>
           <div className="flex gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
@@ -96,32 +96,14 @@ const App = () => {
             />
           </div>
 
-          {/* Bannière de tarification et d'accès */}
-          <div className="mb-6 text-center flex flex-col gap-2">
-            <div className="bg-cyan-500/10 border border-cyan-500/30 rounded py-3 px-4 animate-pulse">
-               <span className="text-cyan-400 font-bold text-sm sm:text-lg tracking-tighter uppercase">
-                ACCÈS VIP + COPY AUTO = 450$ / 3 MOIS
-               </span>
-            </div>
-            
-            <a 
-              href="https://t.me/nakaminsky" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="w-full bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold py-2.5 rounded transition-all flex items-center justify-center gap-2 uppercase tracking-[0.2em] shadow-lg shadow-cyan-900/20 active:scale-[0.98]"
-            >
-              Paiement <ExternalLink size={14} />
-            </a>
-
-            <div className="text-slate-500 text-xs font-black tracking-[0.3em] mt-1">OU</div>
-            
-            {/* Bouton de démarrage mis à jour */}
+          {/* Section d'évaluation simplifiée */}
+          <div className="mb-8 text-center flex flex-col gap-4">
             {step === 'intro' ? (
               <button 
                 onClick={startChallenge}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold py-3 rounded transition-all flex items-center justify-center gap-2 uppercase tracking-widest shadow-lg shadow-emerald-900/20 active:scale-[0.98]"
+                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold py-4 rounded transition-all flex items-center justify-center gap-2 uppercase tracking-widest shadow-lg shadow-emerald-900/20 active:scale-[0.98]"
               >
-                DEMARRER LE TEST <Target size={18} />
+                DEMARRER LE TEST <Target size={20} />
               </button>
             ) : (
               <div className="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest border border-emerald-500/20 py-3 rounded bg-emerald-500/5 uppercase">
@@ -151,90 +133,90 @@ const App = () => {
 
             {step === 'challenge1' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Une bougie impulsive casse une résistance majeure sans vous. Que faites-vous ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider text-left">Une bougie impulsive casse une résistance majeure sans vous. Que faites-vous ?</p>
                 <button
                   onClick={() => handleChoice(false, "FOMO", "challenge2")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">A/</span> Entrer immédiatement au prix du marché pour ne pas rater le mouvement.
+                  <span className="text-slate-500 group-hover:text-red-400 font-bold">A/</span> Entrer immédiatement au prix du marché pour ne pas rater le mouvement.
                 </button>
                 <button
                   onClick={() => handleChoice(true, "Patience", "challenge2")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">B/</span> Attendre un retest de la zone ou un nouveau setup de probabilité.
+                  <span className="text-slate-500 group-hover:text-cyan-400 font-bold">B/</span> Attendre un retest de la zone ou un nouveau setup de probabilité.
                 </button>
               </div>
             )}
 
             {step === 'challenge2' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Vous subissez 3 pertes consécutives ce matin (Drawdown). Quelle est votre réaction ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider text-left">Vous subissez 3 pertes consécutives ce matin (Drawdown). Quelle est votre réaction ?</p>
                 <button
                   onClick={() => handleChoice(false, "Revenge Trading", "challenge3")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">A/</span> Augmenter le levier sur le prochain trade pour récupérer rapidement.
+                  <span className="text-slate-500 group-hover:text-red-400 font-bold">A/</span> Augmenter le levier sur le prochain trade pour récupérer rapidement.
                 </button>
                 <button
                   onClick={() => handleChoice(true, "Discipline Émotionnelle", "challenge3")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">B/</span> Fermer le terminal, analyser le journal et faire une pause mentale.
+                  <span className="text-slate-500 group-hover:text-cyan-400 font-bold">B/</span> Fermer le terminal, analyser le journal et faire une pause mentale.
                 </button>
               </div>
             )}
 
             {step === 'challenge3' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Objectif journalier atteint après seulement 20 min de trading. Action ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider text-left">Objectif journalier atteint après seulement 20 min de trading. Action ?</p>
                 <button
                   onClick={() => handleChoice(false, "Overtrading", "challenge4")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">A/</span> Continuer de chercher des opportunités pour faire une journée record.
+                  <span className="text-slate-500 group-hover:text-red-400 font-bold">A/</span> Continuer de chercher des opportunités pour faire une journée record.
                 </button>
                 <button
                   onClick={() => handleChoice(true, "Gestion des Gains", "challenge4")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">B/</span> Sécuriser les gains, éteindre les écrans et respecter son plan.
+                  <span className="text-slate-500 group-hover:text-cyan-400 font-bold">B/</span> Sécuriser les gains, éteindre les écrans et respecter son plan.
                 </button>
               </div>
             )}
 
             {step === 'challenge4' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">La volatilité du marché augmente soudainement de 300%. Quelle est votre approche ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider text-left">La volatilité du marché augmente soudainement de 300%. Quelle est votre approche ?</p>
                 <button
                   onClick={() => handleChoice(false, "Risque Excessif", "challenge5")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">A/</span> Garder la même taille de position pour profiter de l'amplitude maximale.
+                  <span className="text-slate-500 group-hover:text-red-400 font-bold">A/</span> Garder la même taille de position pour profiter de l'amplitude maximale.
                 </button>
                 <button
                   onClick={() => handleChoice(true, "Gestion du Risque", "challenge5")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">B/</span> Réduire la taille des positions pour conserver le même risque monétaire.
+                  <span className="text-slate-500 group-hover:text-cyan-400 font-bold">B/</span> Réduire la taille des positions pour conserver le même risque monétaire.
                 </button>
               </div>
             )}
 
             {step === 'challenge5' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Le prix touche votre Stop Loss exact mais semble vouloir rebondir. Votre réaction ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider text-left">Le prix touche votre Stop Loss exact mais semble vouloir rebondir. Votre réaction ?</p>
                 <button
                   onClick={() => handleChoice(false, "Espoir", "success")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">A/</span> Élargir ou supprimer le Stop Loss temporairement pour laisser respirer le trade.
+                  <span className="text-slate-500 group-hover:text-red-400 font-bold">A/</span> Élargir ou supprimer le Stop Loss temporairement pour laisser respirer le trade.
                 </button>
                 <button
                   onClick={() => handleChoice(true, "Acceptation", "success")}
-                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3"
+                  className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-cyan-500 transition-all flex items-center gap-3 group"
                 >
-                  <span className="text-slate-500 font-bold">B/</span> Laisser le Stop Loss s'exécuter. Une perte fait partie du plan de trading.
+                  <span className="text-slate-500 group-hover:text-cyan-400 font-bold">B/</span> Laisser le Stop Loss s'exécuter. Une perte fait partie du plan de trading.
                 </button>
               </div>
             )}
@@ -252,9 +234,9 @@ const App = () => {
                   href="https://moonx.io/ref/QPHWJ1I"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded transition-all flex items-center gap-2 uppercase tracking-[0.15em] shadow-xl shadow-cyan-900/30 active:scale-95"
+                  className="mt-8 px-6 py-4 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-bold rounded transition-all flex items-center gap-2 uppercase tracking-[0.15em] shadow-xl shadow-cyan-900/30 active:scale-95"
                 >
-                  Ouvrir mon compte de trading <ExternalLink size={14} />
+                  Ouvrir mon compte de trading <ExternalLink size={16} />
                 </a>
               </div>
             )}
