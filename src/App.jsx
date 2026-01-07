@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Cpu, Lock, Unlock, Zap, ChevronRight, AlertCircle, Shield, ExternalLink, Brain, Target } from 'lucide-react';
 
 /**
- * Nakaminsky Protocol Challenge - Psychology Edition v2.6
+ * Nakaminsky Protocol Challenge - Psychology Edition v2.7
  * 1. FOMO Management
  * 2. Emotional Control (Drawdown)
  * 3. Discipline (Daily Target)
@@ -71,7 +71,7 @@ const App = () => {
         <div className="bg-slate-800/50 p-3 border-b border-slate-700 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Cpu size={18} className="text-cyan-400" />
-            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // Trading v2.6</span>
+            <span className="text-xs font-bold tracking-widest uppercase text-slate-400">Nakaminsky.Protocol // Trading v2.7</span>
           </div>
           <div className="flex gap-1.5">
             <div className="w-2.5 h-2.5 rounded-full bg-slate-700"></div>
@@ -115,9 +115,19 @@ const App = () => {
 
             <div className="text-slate-500 text-xs font-black tracking-[0.3em] mt-1">OU</div>
             
-            <div className="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest border border-emerald-500/20 py-2 rounded bg-emerald-500/5 uppercase">
-              RÉUSSIR NOTRE TEST
-            </div>
+            {/* Bouton de démarrage mis à jour */}
+            {step === 'intro' ? (
+              <button 
+                onClick={startChallenge}
+                className="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold py-3 rounded transition-all flex items-center justify-center gap-2 uppercase tracking-widest shadow-lg shadow-emerald-900/20 active:scale-[0.98]"
+              >
+                DEMARRER LE TEST <Target size={18} />
+              </button>
+            ) : (
+              <div className="text-emerald-400 text-xs sm:text-sm font-bold tracking-widest border border-emerald-500/20 py-3 rounded bg-emerald-500/5 uppercase">
+                TEST EN COURS
+              </div>
+            )}
           </div>
           
           {/* Logs du Terminal */}
@@ -130,23 +140,18 @@ const App = () => {
           </div>
 
           {/* Interface Dynamique */}
-          <div className="flex flex-col items-center min-h-[100px] justify-center text-center">
+          <div className="flex flex-col items-center min-h-[260px] justify-center text-center">
             
             {step === 'intro' && (
-              <button 
-                onClick={startChallenge}
-                className="group relative px-8 py-4 bg-cyan-600 text-white font-bold rounded overflow-hidden transition-all hover:bg-cyan-500 active:scale-95 shadow-lg shadow-cyan-900/20"
-              >
-                <span className="relative z-10 flex items-center gap-2 tracking-widest uppercase text-sm">
-                  LANCER L'ÉVALUATION <Target size={18} />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
-              </button>
+              <div className="flex flex-col items-center gap-4 text-slate-500 animate-pulse">
+                <Brain size={48} strokeWidth={1} />
+                <p className="text-xs uppercase tracking-[0.3em]">En attente de démarrage...</p>
+              </div>
             )}
 
             {step === 'challenge1' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Une bougie impulsive casse une résistance majeure sans vous. Que faites-vous ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Une bougie impulsive casse une résistance majeure sans vous. Que faites-vous ?</p>
                 <button
                   onClick={() => handleChoice(false, "FOMO", "challenge2")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -164,7 +169,7 @@ const App = () => {
 
             {step === 'challenge2' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Vous subissez 3 pertes consécutives ce matin (Drawdown). Quelle est votre réaction ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Vous subissez 3 pertes consécutives ce matin (Drawdown). Quelle est votre réaction ?</p>
                 <button
                   onClick={() => handleChoice(false, "Revenge Trading", "challenge3")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -182,7 +187,7 @@ const App = () => {
 
             {step === 'challenge3' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Objectif journalier atteint après seulement 20 min de trading. Action ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Objectif journalier atteint après seulement 20 min de trading. Action ?</p>
                 <button
                   onClick={() => handleChoice(false, "Overtrading", "challenge4")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -200,7 +205,7 @@ const App = () => {
 
             {step === 'challenge4' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">La volatilité du marché augmente soudainement de 300%. Quelle est votre approche ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">La volatilité du marché augmente soudainement de 300%. Quelle est votre approche ?</p>
                 <button
                   onClick={() => handleChoice(false, "Risque Excessif", "challenge5")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
@@ -218,7 +223,7 @@ const App = () => {
 
             {step === 'challenge5' && (
               <div className="grid grid-cols-1 gap-3 w-full animate-in zoom-in-95 duration-300">
-                <p className="text-[14px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Le prix touche votre Stop Loss exact mais semble vouloir rebondir. Votre réaction ?</p>
+                <p className="text-[10px] text-slate-500 uppercase mb-2 font-bold tracking-wider">Le prix touche votre Stop Loss exact mais semble vouloir rebondir. Votre réaction ?</p>
                 <button
                   onClick={() => handleChoice(false, "Espoir", "success")}
                   className="w-full bg-slate-800/30 border border-slate-700 p-3 rounded text-left text-xs hover:border-red-500 transition-all flex items-center gap-3"
